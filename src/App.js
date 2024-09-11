@@ -1,16 +1,23 @@
-import React from 'react';
-import './App.css';
-import TrackForm from './Components/Track';
+import React from "react";
+import { Toaster } from "react-hot-toast";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import TrackForm from "./Components/Track";
 
 function App() {
- 
   return (
     <div>
-      <main>
-      
-        <TrackForm/>
-      
-      </main>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main>
+              <Toaster position="bottom-left" reverseOrder={false} />
+              <TrackForm />
+            </main>
+          }
+        />
+      </Routes>
     </div>
   );
 }

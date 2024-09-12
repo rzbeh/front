@@ -27,9 +27,10 @@ export default function DetailsForm({ setStep }) {
     const serial = searchParams.get("serial");
     try {
       await api.submitDetails(serial, km, sellerNumber, engineId);
-      toast.success("Your information submitted successfully!");
-      setStep(0);
-    } catch (error) {}
+      toast.success("اطلاعات شما با موفقیت ثبت شد");
+    } catch (error) {
+      toast.error("خطایی در ثبت اطلاعات رخ داد");
+    }
   };
 
   const handleCalculate = async (e) => {
@@ -39,7 +40,7 @@ export default function DetailsForm({ setStep }) {
       const res = await api.calculateOperation(details?.km, currentKm);
       setCalculateResult(res.data);
     } catch (error) {
-      toast.error("An unexpected error accured");
+      toast.error("یک خطای غیر منتظره رخ داد! دوباره تلاش کنید");
     }
   };
 
@@ -49,34 +50,77 @@ export default function DetailsForm({ setStep }) {
 
   return (
     <div className="additional-details">
-      <form onSubmit={submitDetails} id="form">
-        <h1>Additional Details</h1>
-        <label htmlFor="engineId">Engine ID</label>
-        <input
-          type="number"
-          name="engineId"
-          placeholder="Engine ID"
-          defaultValue={details?.engineId}
-          required
-        />
-        <label htmlFor="km">Kilometers</label>
-        <input
-          type="number"
-          name="km"
-          placeholder="KM"
-          defaultValue={details?.km}
-          required
-        />
-        <label htmlFor="sellerNumber">Seller Number</label>
-        <input
-          type="number"
-          name="sellerNumber"
-          placeholder="Seller number"
-          defaultValue={details?.sellernum}
-          required
-        />
+      <form onSubmit={submitDetails} id="form" className="details-form">
+        <h1>اطلاعات تکمیلی</h1>
+        <div className="form-grid">
+          <div>
+            <label htmlFor="engineId">شناسه موتور</label>
+            <input
+              type="number"
+              name="engineId"
+              placeholder="شناسه موتور"
+              defaultValue={details?.engineId}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="km">کیلومتر</label>
+            <input
+              type="number"
+              name="km"
+              placeholder="کیلومتر"
+              defaultValue={details?.km}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="sellerNumber">شماره فروشنده</label>
+            <input
+              type="number"
+              name="sellerNumber"
+              placeholder="شماره فروشنده"
+              defaultValue={details?.sellernum}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="carType">نوع خودرو</label>
+            <input
+              type="text"
+              name="carType"
+              placeholder="نوع خودرو"
+              defaultValue={details?.carType}
+              disabled
+            />
+          </div>
+
+          <div>
+            <label htmlFor="code">شماره مدل</label>
+            <input
+              type="text"
+              name="code"
+              placeholder="شماره مدل"
+              defaultValue={details?.code}
+              disabled
+            />
+          </div>
+
+          <div>
+            <label htmlFor="type">نوع کالا</label>
+            <input
+              type="text"
+              name="type"
+              placeholder="نوع کالا"
+              defaultValue={details?.type}
+              disabled
+            />
+          </div>
+        </div>
         <button type="submit" className="main-button">
-          Submit
+          ثبت
         </button>
       </form>
       {details?.km && (
@@ -84,21 +128,28 @@ export default function DetailsForm({ setStep }) {
           <input
             type="number"
             name="currentKm"
-            placeholder="Current Kilometers"
+            placeholder="کیلومتر کنونی"
             required
           />
           {calculateResult && (
-            <p className="result-text">{`Kilometers driven: ${
+            <p className="result-text">{`شما ${
               calculateResult?.kilometersDriven
-            } and You ${
-              !calculateResult?.isReplacementNeeded ? "don't" : ""
-            } need replacement`}</p>
+            } کیلومتر سپری کرده‌اید و نیاز به تعویض ${
+              calculateResult?.isReplacementNeeded ? "دارید" : "ندارید"
+            }`}</p>
           )}
           <button type="submit" className="main-button">
-            Calculate
+            محاسبه
           </button>
         </form>
       )}
     </div>
   );
 }
+
+// شماره مدل
+// code
+// خوردرو نوع
+// carType
+// نوع کالا
+// type

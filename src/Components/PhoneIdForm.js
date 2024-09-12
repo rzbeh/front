@@ -1,9 +1,9 @@
-import React from "react";
-import api from "../API/api";
-import toast from "react-hot-toast";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import api from "../API/api";
 
 export default function PhoneIdForm({ setStep }) {
+  const [error, setError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
   const checkSerial = async (e) => {
@@ -15,32 +15,41 @@ export default function PhoneIdForm({ setStep }) {
       setSearchParams({ phoneNumber: phoneNumber, serial: serial });
       setStep(1);
     } catch (error) {
-      if (error.status === 404) {
-        toast.error("Invalid combination of phone number and ID");
+      if (error.status === 404 || error.status === 400) {
+        setError("شماره همراه یا آیدی اشتباه است");
+        // toast.error("Invalid combination of phone number and ID");
       } else {
-        toast.error("An Unexpected error accured");
+        setError("یک خطای غیر منتظره رخ داد! دوباره تلاش کنید");
+        // toast.error("An Unexpected error accured");
       }
     }
   };
 
   return (
-    <form onSubmit={checkSerial} id="form">
-      <h1>Track</h1>
+    <form onSubmit={checkSerial} id="form" className="sign-in">
+      <h1>پیگیری</h1>
       <input
         type="text"
         name="phone"
-        placeholder="Phone"
+        placeholder="شماره همراه"
         defaultValue={searchParams.get("phoneNumber")}
         required
       />
       <input
         type="number"
         name="id"
-        placeholder="ID"
+        placeholder="شناسه"
         defaultValue={searchParams.get("serial")}
         required
       />
-      <button type="submit" className="main-button">Submit</button>
+      {error !== "" && (
+        <div className="error-box">
+          <p className="error">{error}</p>
+        </div>
+      )}
+      <button type="submit" className="main-button">
+        ثبت
+      </button>
     </form>
   );
 }

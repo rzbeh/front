@@ -2,24 +2,26 @@ import { useState } from "react";
 import PhoneIdForm from "./PhoneIdForm";
 import "./style.css";
 import DetailsForm from "./DetailsForm";
-import { useSearchParams } from "react-router-dom";
 
 const TrackForm = () => {
   const [step, setStep] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <div className="container" id="container">
-      <div className="form-container sign-in">
+    <div
+      className={`container ${step === 1 && "details-container"}`}
+      id="container"
+    >
+      <div className="form-container">
         {step === 0 && <PhoneIdForm setStep={setStep} />}
         {step === 1 && <DetailsForm setStep={setStep} />}
       </div>
       <div className="toggle-container">
         <div className="toggle">
           <div className="toggle-panel toggle-right">
-            <h1>Hello, Friend!</h1>
+            <h1>!سلام</h1>
             <p>
-              Register with your product details to use all of the site features
+              اطلاعات محصول خود را وارد کنید تا بتوانید از همه‌ی قابلیت‌های سایت
+              استفاده کنید
             </p>
           </div>
         </div>

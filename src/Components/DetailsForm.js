@@ -23,9 +23,9 @@ export default function DetailsForm({ setStep }) {
 
   const submitDetails = async (e) => {
     e.preventDefault();
-    const engineId = e.target[0].value;
-    const km = e.target[1].value;
-    const sellerNumber = e.target[2].value;
+    const engineId = e.target[0].value || null;
+    const km = e.target[1].value || null;
+    const sellerNumber = e.target[2].value || null;
     const serial = searchParams.get("serial");
     try {
       await api.submitDetails(serial, km, sellerNumber, engineId);
@@ -153,10 +153,3 @@ export default function DetailsForm({ setStep }) {
     </div>
   );
 }
-
-// شماره مدل
-// code
-// خوردرو نوع
-// carType
-// نوع کالا
-// type

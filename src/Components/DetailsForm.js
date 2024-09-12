@@ -8,6 +8,8 @@ export default function DetailsForm({ setStep }) {
   const [details, setDetails] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [calculateResult, setCalculateResult] = useState();
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const fetchDetails = async () => {
     const serial = searchParams.get("serial");
@@ -27,9 +29,11 @@ export default function DetailsForm({ setStep }) {
     const serial = searchParams.get("serial");
     try {
       await api.submitDetails(serial, km, sellerNumber, engineId);
-      toast.success("اطلاعات شما با موفقیت ثبت شد");
+      setError("");
+      setMessage("اطلاعات شما با موفقیت ثبت شد");
     } catch (error) {
-      toast.error("خطایی در ثبت اطلاعات رخ داد");
+      setMessage("");
+      setError("خطایی در ثبت اطلاعات رخ داد");
     }
   };
 
@@ -60,7 +64,6 @@ export default function DetailsForm({ setStep }) {
               name="engineId"
               placeholder="شناسه موتور"
               defaultValue={details?.engineId}
-              required
             />
           </div>
 
@@ -71,7 +74,6 @@ export default function DetailsForm({ setStep }) {
               name="km"
               placeholder="کیلومتر"
               defaultValue={details?.km}
-              required
             />
           </div>
 
@@ -82,7 +84,6 @@ export default function DetailsForm({ setStep }) {
               name="sellerNumber"
               placeholder="شماره فروشنده"
               defaultValue={details?.sellernum}
-              required
             />
           </div>
 
@@ -103,7 +104,7 @@ export default function DetailsForm({ setStep }) {
               type="text"
               name="code"
               placeholder="شماره مدل"
-              defaultValue={details?.code}
+              defaultValue={details?.codes}
               disabled
             />
           </div>
@@ -122,6 +123,12 @@ export default function DetailsForm({ setStep }) {
         <button type="submit" className="main-button">
           ثبت
         </button>
+        {message !== "" && error === "" && (
+          <p className="submit-message">{message}</p>
+        )}
+        {message === "" && error !== "" && (
+          <p className="error-message">{error}</p>
+        )}
       </form>
       {details?.km && (
         <form onSubmit={handleCalculate} id="form">

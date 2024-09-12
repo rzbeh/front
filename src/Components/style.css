@@ -240,12 +240,11 @@ body {
   text-align: center;
 }
 
-.error-box {
-  p {
-    margin: 0;
-    color: red;
-    margin-bottom: 8px;
-  }
+.error-message {
+  font-size: 12px !important;
+  font-weight: 600;
+  margin: 8px 0 8px 0 !important;
+  color: red;
 }
 
 .details-form .form-grid {
@@ -298,7 +297,7 @@ body {
 
   .details-form {
     margin-top: 160px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 
   .details-container {
@@ -309,4 +308,11 @@ body {
   .details-form .form-grid {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+.submit-message {
+  margin: 8px 0 0 0 !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  color: green;
 }

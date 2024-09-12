@@ -16,7 +16,7 @@ export default function PhoneIdForm({ setStep }) {
       setStep(1);
     } catch (error) {
       if (error.status === 404 || error.status === 400) {
-        setError("شماره همراه یا آیدی اشتباه است");
+        setError("شماره همراه یا شناسه اشتباه است");
         // toast.error("Invalid combination of phone number and ID");
       } else {
         setError("یک خطای غیر منتظره رخ داد! دوباره تلاش کنید");
@@ -44,7 +44,7 @@ export default function PhoneIdForm({ setStep }) {
       />
       {error !== "" && (
         <div className="error-box">
-          <p className="error">{error}</p>
+          <p className="error-message">{error}</p>
         </div>
       )}
       <button type="submit" className="main-button">

@@ -316,3 +316,47 @@ body {
   font-weight: 600;
   color: green;
 }
+
+.qr-code-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-header {
+  color: red;
+  font-size: 20px !important;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+.qr-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  padding: 0 40px 40px 40px;
+  gap: 20px;
+  h1 {
+    margin-top: 10px;
+  }
+}
+
+.qr-grid {
+  display: grid;
+  direction: rtl;
+  grid-template-columns: repeat(2, auto);
+  gap: 30px;
+  p {
+    margin: 0 !important;
+  }
+}
+
+@media screen and (max-width: 455px) {
+  .qr-grid {
+    grid-template-columns: repeat(1, auto);
+  }
+}

@@ -32,6 +32,12 @@ const api = {
       currentKm,
     });
   },
+
+  qrStatus: async (serial) => {
+    return await axiosInstance.get(
+      `/api/Serial/qr-code-serial-status/${serial}`
+    );
+  },
 };
 
 export default api;

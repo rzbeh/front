@@ -74,6 +74,11 @@ export default function QRCodePage() {
                         <b>نوع کالا:</b> {details?.type}
                       </p>
                     </div>
+               <div>
+                      <p>
+                        <b>نوع کالا:</b> {details?.msg}
+                      </p>
+                    </div>
                   </div>
                 </>
               )}

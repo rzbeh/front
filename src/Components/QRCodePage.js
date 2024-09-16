@@ -39,23 +39,7 @@ export default function QRCodePage() {
                 <>
                   <h1>جزئیات محصول</h1>
                   <div className="qr-grid">
-                    <div>
-                      <p>
-                        <b>شناسه موتور:</b> {details?.engineId}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p>
-                        <b>کیلومتر:</b> {details?.km}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p>
-                        <b>شماره فروشنده:</b> {details?.sellernum}
-                      </p>
-                    </div>
+                    
 
                     <div>
                       <p>
@@ -74,11 +58,14 @@ export default function QRCodePage() {
                         <b>نوع کالا:</b> {details?.type}
                       </p>
                     </div>
-               <div>
+                    
+                    <div>
                       <p>
-                        <b>نوع کالا:</b> {details?.msg}
+                        <b> وضغیت کالا:</b> {details?.msg}
                       </p>
                     </div>
+
+                    
                   </div>
                 </>
               )}

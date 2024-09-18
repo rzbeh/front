@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://localhost:7076";
+const API_BASE_URL = "http://localhost:5120";
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 300000,
@@ -37,6 +37,10 @@ const api = {
     return await axiosInstance.get(
       `/api/Serial/qr-code-serial-status/${serial}`
     );
+  },
+
+  sendSerial: async (phoneNumber) => {
+    return await axiosInstance.post("/api/Sms/send-serial", { phoneNumber });
   },
 };
 

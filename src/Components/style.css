@@ -65,9 +65,39 @@ body {
   cursor: pointer;
 }
 
+.main-button:disabled {
+  background-color: #522da885;
+  cursor: not-allowed;
+}
+
 .main-button.hidden {
   background-color: transparent;
   border-color: #fff;
+}
+
+.loader-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.forget-serial-text {
+  direction: rtl;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  margin: 8px 0 8px 0 !important;
+  font-size: 12px !important;
+  .link {
+    margin: 0;
+    font-size: 12px !important;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+  }
 }
 
 .container form {
@@ -243,8 +273,14 @@ body {
 .error-message {
   font-size: 12px !important;
   font-weight: 600;
-  margin: 8px 0 8px 0 !important;
+  margin: 0px 0 8px 0 !important;
   color: red;
+}
+.success-message {
+  font-size: 12px !important;
+  font-weight: 600;
+  margin: 0px 0 8px 0 !important;
+  color: green;
 }
 
 .details-form .form-grid {
@@ -275,7 +311,11 @@ body {
 
   .sign-in {
     width: 100%;
-    margin-bottom: 130px;
+    margin-bottom: 100px;
+  }
+
+  .forget-serial {
+    margin-bottom: 100px !important;
   }
 
   .form-container {

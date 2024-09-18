@@ -39,33 +39,26 @@ export default function QRCodePage() {
                 <>
                   <h1>جزئیات محصول</h1>
                   <div className="qr-grid">
-                    
-
                     <div>
                       <p>
                         <b>نوع خودرو:</b> {details?.carType}
                       </p>
                     </div>
-
                     <div>
                       <p>
                         <b>شماره مدل:</b> {details?.codes}
                       </p>
                     </div>
-
                     <div>
                       <p>
                         <b>نوع کالا:</b> {details?.type}
                       </p>
                     </div>
-                    
                     <div>
                       <p>
                         <b> وضغیت کالا:</b> {details?.msg}
                       </p>
                     </div>
-
-                    
                   </div>
                 </>
               )}

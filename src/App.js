@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import TrackForm from "./Components/Track";
 import QRCodePage from "./Components/QRCodePage";
+import ForgetSerial from "./Components/ForgetSerial";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           }
         />
         <Route path="/qrcode" element={<QRCodePage />} />
+        <Route path="/forget-serial" element={<ForgetSerial />} />
       </Routes>
     </div>
   );

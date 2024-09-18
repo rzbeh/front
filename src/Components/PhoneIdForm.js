@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../API/api";
 
 export default function PhoneIdForm({ setStep }) {
   const [error, setError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   const checkSerial = async (e) => {
     e.preventDefault();
@@ -47,6 +49,12 @@ export default function PhoneIdForm({ setStep }) {
           <p className="error-message">{error}</p>
         </div>
       )}
+      <p className="forget-serial-text">
+        شناسه خود را فراموش کرده‌اید؟
+        <p className="link" onClick={() => navigate("/forget-serial")}>
+          بازیابی شناسه
+        </p>
+      </p>
       <button type="submit" className="main-button">
         ثبت
       </button>

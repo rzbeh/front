@@ -39,11 +39,11 @@ export default function QRCodePage() {
         <div className="qr-details">
           <img src="/logo2.png" alt="logo" className="logo2" />
           {haveError ? (
-            <p className="error-header">!خطایی رخ داد</p>
+            <p className="error-header">An Error Accured!</p>
           ) : (
             <>
               {loading ? (
-                <p>...درحال بارگذاری</p>
+                <p>Loading...</p>
               ) : (
                 <>
                   <QRCode
@@ -55,26 +55,26 @@ export default function QRCodePage() {
                     value={window.location.href}
                     viewBox={`0 0 256 256`}
                   />
-                  <h1>جزئیات محصول</h1>
+                  <h1>Product Details:</h1>
                   <div className="qr-grid">
                     <div>
                       <p>
-                        <b>نوع خودرو:</b> {details?.carType}
+                        <b>Car Type:</b> {details?.carType}
                       </p>
                     </div>
                     <div>
                       <p>
-                        <b>شماره مدل:</b> {details?.codes}
+                        <b>Model Number:</b> {details?.codes}
                       </p>
                     </div>
                     <div>
                       <p>
-                        <b>نوع کالا:</b> {details?.type}
+                        <b>Type:</b> {details?.type}
                       </p>
                     </div>
                     <div>
                       <p>
-                        <b> وضغیت کالا:</b> {details?.msg}
+                        <b>Status:</b> {details?.msg}
                       </p>
                     </div>
                   </div>

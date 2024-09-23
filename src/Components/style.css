@@ -431,7 +431,6 @@ body {
 
 .qr-grid {
   display: grid;
-  direction: rtl;
   grid-template-columns: repeat(2, auto);
   gap: 30px;
   p {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../API/api";
+import toast from "react-hot-toast";
 
 export default function PhoneIdForm({ setStep }) {
   const [error, setError] = useState("");
@@ -14,6 +15,7 @@ export default function PhoneIdForm({ setStep }) {
     const serial = e.target[1].value;
     try {
       await api.checkSerial(serial, phoneNumber);
+      toast.success("شناسه با موفقیت ثبت شد و گارانتی شما شروع شد");
       setSearchParams({ phoneNumber: phoneNumber, serial: serial });
       setStep(1);
     } catch (error) {
@@ -29,6 +31,7 @@ export default function PhoneIdForm({ setStep }) {
 
   return (
     <form onSubmit={checkSerial} id="form" className="sign-in">
+      <img src="/logo1.jpg" className="logo1" />
       <h1>پیگیری</h1>
       <input
         type="text"
@@ -58,6 +61,10 @@ export default function PhoneIdForm({ setStep }) {
       <button type="submit" className="main-button">
         ثبت
       </button>
+      <div className="logo-container">
+        <img src="/logo2.png" alt="logo" />
+        <img src="/logo3.jpg" alt="logo" />
+      </div>
     </form>
   );
 }

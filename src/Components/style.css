@@ -100,22 +100,32 @@ body {
   }
 }
 
-.container form {
+.sign-in {
   background-color: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   padding: 0 40px;
   height: 100%;
+  overflow-x: hidden;
 }
 
-.form-container form {
+.sign-in {
   label {
     width: 100%;
     text-align: right;
     font-size: 13px;
   }
+}
+
+.forget-serial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 40px;
 }
 
 .container input {
@@ -275,6 +285,7 @@ body {
   font-weight: 600;
   margin: 0px 0 8px 0 !important;
   color: red;
+  text-align: center;
 }
 .success-message {
   font-size: 12px !important;
@@ -283,11 +294,28 @@ body {
   color: green;
 }
 
+.details-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+}
+
+.current-km {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px;
+  padding-bottom: 10px;
+}
+
 .details-form .form-grid {
   display: grid;
   direction: rtl;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .form-grid div {
@@ -295,11 +323,28 @@ body {
   flex-direction: column;
 }
 
-@media screen and (max-width: 790px) {
-  .form-container {
-    position: relative;
-  }
+.logo1 {
+  width: 200px;
+  margin-top: 10px;
+  margin-bottom: 90px;
+}
 
+.logo2 {
+  width: 200px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  margin-top: 16px;
+  img {
+    width: 130px;
+  }
+}
+
+@media screen and (max-width: 790px) {
   .container {
     width: 300px;
     display: flex;
@@ -310,12 +355,11 @@ body {
   }
 
   .sign-in {
-    width: 100%;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
   }
 
   .forget-serial {
-    margin-bottom: 100px !important;
+    padding-top: 105px !important;
   }
 
   .form-container {
@@ -336,17 +380,20 @@ body {
   }
 
   .details-form {
-    margin-top: 160px;
-    margin-bottom: 10px;
+    margin-top: 560px;
   }
 
   .details-container {
-    margin-top: 400px;
     margin-bottom: 25px;
   }
 
   .details-form .form-grid {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .logo1 {
+    margin-top: 180px;
+    margin-bottom: 0;
   }
 }
 
@@ -380,9 +427,6 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   padding: 0 40px 40px 40px;
   gap: 20px;
-  h1 {
-    margin-top: 10px;
-  }
 }
 
 .qr-grid {

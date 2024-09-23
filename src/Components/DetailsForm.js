@@ -4,12 +4,13 @@ import api from "../API/api";
 import "./style.css";
 import toast from "react-hot-toast";
 
-export default function DetailsForm({ setStep }) {
+export default function DetailsForm() {
   const [details, setDetails] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [calculateResult, setCalculateResult] = useState();
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [expireError, setExpireError] = useState(false);
 
   const fetchDetails = async () => {
     const serial = searchParams.get("serial");
@@ -39,7 +40,12 @@ export default function DetailsForm({ setStep }) {
 
   const handleCalculate = async (e) => {
     e.preventDefault();
+    setExpireError(false);
     const currentKm = e.target[0].value;
+    if (currentKm - details?.km > 60000) {
+      setExpireError(true);
+      return;
+    }
     try {
       const res = await api.calculateOperation(details?.km, currentKm);
       setCalculateResult(res.data);
@@ -130,8 +136,8 @@ export default function DetailsForm({ setStep }) {
           <p className="error-message">{error}</p>
         )}
       </form>
-      {details?.km && (
-        <form onSubmit={handleCalculate} id="form">
+      {!details?.km && (
+        <form onSubmit={handleCalculate} id="form" className="current-km">
           <input
             type="number"
             name="currentKm"
@@ -144,6 +150,9 @@ export default function DetailsForm({ setStep }) {
             } کیلومتر سپری کرده‌اید و نیاز به تعویض ${
               calculateResult?.isReplacementNeeded ? "دارید" : "ندارید"
             }`}</p>
+          )}
+          {expireError && (
+            <p className="error-message">مدت گارانتی مشمول شما به اتمام رسید</p>
           )}
           <button type="submit" className="main-button">
             محاسبه

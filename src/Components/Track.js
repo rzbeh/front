@@ -13,7 +13,7 @@ const TrackForm = () => {
     >
       <div className="form-container">
         {step === 0 && <PhoneIdForm setStep={setStep} />}
-        {step === 1 && <DetailsForm setStep={setStep} />}
+        {step === 1 && <DetailsForm />}
       </div>
       <div className="toggle-container">
         <div className="toggle">

@@ -344,6 +344,15 @@ body {
   }
 }
 
+.toast-with-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+  gap: 8px;
+}
+
 @media screen and (max-width: 790px) {
   .container {
     width: 300px;

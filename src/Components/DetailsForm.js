@@ -11,6 +11,7 @@ export default function DetailsForm() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [expireError, setExpireError] = useState(false);
+  const [kilometerSubmitted, setKilometerSubmitted] = useState(false);
 
   const fetchDetails = async () => {
     const serial = searchParams.get("serial");
@@ -30,8 +31,20 @@ export default function DetailsForm() {
     const serial = searchParams.get("serial");
     try {
       await api.submitDetails(serial, km, sellerNumber, engineId);
+      setKilometerSubmitted(true);
       setError("");
       setMessage("اطلاعات شما با موفقیت ثبت شد");
+      toast.success(
+        (t) => (
+          <span className="toast-with-button">
+            <p>اطلاعات با موفقیت ثبت شد و گارانتی شما شروع شد</p>
+            <button className="main-button" onClick={() => toast.dismiss(t.id)}>
+              باشه
+            </button>
+          </span>
+        ),
+        { duration: 20000 }
+      );
     } catch (error) {
       setMessage("");
       setError("خطایی در ثبت اطلاعات رخ داد");
@@ -80,6 +93,7 @@ export default function DetailsForm() {
               name="km"
               placeholder="کیلومتر"
               defaultValue={details?.km}
+              disabled={kilometerSubmitted || details?.km}
             />
           </div>
 
@@ -136,7 +150,7 @@ export default function DetailsForm() {
           <p className="error-message">{error}</p>
         )}
       </form>
-      {!details?.km && (
+      {details?.km && (
         <form onSubmit={handleCalculate} id="form" className="current-km">
           <input
             type="number"

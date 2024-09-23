@@ -15,7 +15,9 @@ export default function PhoneIdForm({ setStep }) {
     const serial = e.target[1].value;
     try {
       await api.checkSerial(serial, phoneNumber);
-      toast.success("شناسه با موفقیت ثبت شد و گارانتی شما شروع شد");
+      toast.success("شناسه با موفقیت برای شما ثبت شد", {
+        duration: 3000,
+      });
       setSearchParams({ phoneNumber: phoneNumber, serial: serial });
       setStep(1);
     } catch (error) {

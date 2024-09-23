@@ -5,23 +5,23 @@ import QRCode from "react-qr-code";
 
 export default function QRCodePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [details, setDetails] = useState();
+  const [details, setDetails] = useState();
   const [loading, setLoading] = useState(false);
   const [haveError, setHaveError] = useState(false);
 
-  const details = {
-    carType: "BMW",
-    codes: 123445,
-    type: "CART",
-    msg: "test message",
-  };
+  // const details = {
+  //   carType: "BMW",
+  //   codes: 123445,
+  //   type: "CART",
+  //   msg: "test message",
+  // };
 
   const fetchDetails = async () => {
     setLoading(true);
     const serial = searchParams.get("serial");
     try {
       const res = await api.qrStatus(serial);
-      // setDetails(res.data);
+      setDetails(res.data);
     } catch (error) {
       setHaveError(true);
     } finally {
@@ -30,7 +30,7 @@ export default function QRCodePage() {
   };
 
   useEffect(() => {
-    // fetchDetails();
+    fetchDetails();
   }, []);
 
   return (
@@ -42,15 +42,19 @@ export default function QRCodePage() {
             <p className="error-header">!خطایی رخ داد</p>
           ) : (
             <>
-              <QRCode
-                style={{ height: "auto", maxWidth: "200px", width: "200px" }}
-                value={window.location.href}
-                viewBox={`0 0 256 256`}
-              />
               {loading ? (
                 <p>...درحال بارگذاری</p>
               ) : (
                 <>
+                  <QRCode
+                    style={{
+                      height: "auto",
+                      maxWidth: "200px",
+                      width: "200px",
+                    }}
+                    value={window.location.href}
+                    viewBox={`0 0 256 256`}
+                  />
                   <h1>جزئیات محصول</h1>
                   <div className="qr-grid">
                     <div>

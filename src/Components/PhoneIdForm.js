@@ -33,7 +33,7 @@ export default function PhoneIdForm({ setStep }) {
 
   return (
     <form onSubmit={checkSerial} id="form" className="sign-in">
-      <img src="/logo1.jpg" className="logo1" />
+      <img src="/logo1.jpg" className="logo1" alt="logo"/>
       <h1>پیگیری</h1>
       <input
         type="text"

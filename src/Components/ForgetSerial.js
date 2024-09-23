@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../API/api";
 import Spinner from "./Spinner";
+import toast from "react-hot-toast";
 
 export default function ForgetSerial() {
   const [error, setError] = useState("");
@@ -15,7 +16,11 @@ export default function ForgetSerial() {
     const phoneNumber = e.target[0].value;
     try {
       const res = await api.sendSerial(phoneNumber);
-      setMessage(res.data);
+      // setMessage(res.data);
+      toast.success(
+        "لطفا با وارد کردن شناسه از وضعیت آخرین گارانتی مطلع بشید",
+        { duration: 5000 }
+      );
     } catch (error) {
       setError(error.response.data);
     } finally {

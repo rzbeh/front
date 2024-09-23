@@ -10,7 +10,7 @@ const carTypeMap = {
     "Pride Tiba Saina Atlas Shahin M15 M-13",
   "پژو 206 تیپ 5 207 اچ سی کراس موتور(TU5)": "Peugeot 206 TU5",
   "رنو ساندرو، ال 90، مگان 1600 موتور(K4M)": "Renault Sandero, L90, Megan K4M",
-  "دنا، سورن، سمند موتور EF7": "Dena, Suren, Samand EF7",
+  "دنا، سورن، سمند موتور(EF7)": "Dena, Suren, Samand EF7",
   "تسمه تایم زانتیا، پارس ELX موتور(XU10)": "Timing Belt Xantia, Pars ELX XU10",
   "تسمه تایم ریو موتور(B5 DOHC)": "Timing Belt Rio B5 DOHC",
 };

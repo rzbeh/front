@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import api from "../API/api";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function ForgetSerial() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const sendSerial = async (e) => {
     e.preventDefault();
@@ -21,6 +24,7 @@ export default function ForgetSerial() {
         "لطفا با وارد کردن شناسه از وضعیت آخرین گارانتی مطلع بشید",
         { duration: 5000 }
       );
+      navigate("/");
     } catch (error) {
       setError(error.response.data);
     } finally {

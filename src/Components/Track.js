@@ -13,15 +13,15 @@ const TrackForm = () => {
     >
       <div className="form-container">
         {step === 0 && <PhoneIdForm setStep={setStep} />}
-        {step === 1 && <DetailsForm />}
+        {step === 1 && <DetailsForm setStep={setStep} />}
       </div>
       <div className="toggle-container">
         <div className="toggle">
           <div className="toggle-panel toggle-right">
-            <h1>!سلام</h1>
+            <h1>سلام</h1>
             <p>
-              اطلاعات محصول خود را وارد کنید تا بتوانید از همه‌ی قابلیت‌های سایت
-              استفاده کنید
+              جهت تایید اصالت کالا و فعال سازی گارانتی مراحل ثبت محصول را تا
+              انتها انجام دهید
             </p>
           </div>
         </div>

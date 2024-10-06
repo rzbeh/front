@@ -3,8 +3,9 @@ import { useSearchParams } from "react-router-dom";
 import api from "../API/api";
 import "./style.css";
 import toast from "react-hot-toast";
+import Modal from "react-modal";
 
-export default function DetailsForm() {
+export default function DetailsForm({ setStep }) {
   const [details, setDetails] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [calculateResult, setCalculateResult] = useState();
@@ -12,6 +13,19 @@ export default function DetailsForm() {
   const [error, setError] = useState("");
   const [expireError, setExpireError] = useState(false);
   const [kilometerSubmitted, setKilometerSubmitted] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      zIndex: 100,
+    },
+  };
 
   const fetchDetails = async () => {
     const serial = searchParams.get("serial");
@@ -34,17 +48,7 @@ export default function DetailsForm() {
       setKilometerSubmitted(true);
       setError("");
       setMessage("اطلاعات شما با موفقیت ثبت شد");
-      toast.success(
-        (t) => (
-          <span className="toast-with-button">
-            <p>اطلاعات با موفقیت ثبت شد و گارانتی شما شروع شد</p>
-            <button className="main-button" onClick={() => toast.dismiss(t.id)}>
-              باشه
-            </button>
-          </span>
-        ),
-        { duration: 20000 }
-      );
+      setModalIsOpen(true);
     } catch (error) {
       setMessage("");
       setError("خطایی در ثبت اطلاعات رخ داد");
@@ -73,6 +77,20 @@ export default function DetailsForm() {
 
   return (
     <div className="additional-details">
+      <Modal isOpen={modalIsOpen} style={customStyles}>
+        <div className="modal-container">
+          <p>اطلاعات با موفقیت ثبت شد و گارانتی شما شروع شد</p>
+          <button
+            className="main-button"
+            onClick={() => {
+              setModalIsOpen(false);
+              setStep(0);
+            }}
+          >
+            باشه
+          </button>
+        </div>
+      </Modal>
       <form onSubmit={submitDetails} id="form" className="details-form">
         <h1>اطلاعات تکمیلی</h1>
         <div className="form-grid">

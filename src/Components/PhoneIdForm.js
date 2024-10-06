@@ -24,6 +24,8 @@ export default function PhoneIdForm({ setStep }) {
       if (error.status === 404 || error.status === 400) {
         setError("شماره همراه یا شناسه اشتباه است");
         // toast.error("Invalid combination of phone number and ID");
+      } else if (error.status === 111 /* change this code */) {
+        setError("این کد قبلا استفاده شده است و تقلبی است");
       } else {
         setError("یک خطای غیر منتظره رخ داد! دوباره تلاش کنید");
         // toast.error("An Unexpected error accured");
@@ -33,8 +35,8 @@ export default function PhoneIdForm({ setStep }) {
 
   return (
     <form onSubmit={checkSerial} id="form" className="sign-in">
-      <img src="/logo1.jpg" className="logo1" alt="logo"/>
-      <h1>پیگیری</h1>
+      <img src="/logo1.jpg" className="logo1" alt="logo" />
+      <h1>پیگیری یا فعال سازی</h1>
       <input
         type="text"
         name="phone"

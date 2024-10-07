@@ -42,6 +42,10 @@ const api = {
   sendSerial: async (phoneNumber) => {
     return await axiosInstance.post("/api/Sms/send-serial", { phoneNumber });
   },
+
+  downloadPDF: async (serial) => {
+    return await axiosInstance.get(`/api/Pdf/generate-pdf/${serial}`);
+  },
 };
 
 export default api;

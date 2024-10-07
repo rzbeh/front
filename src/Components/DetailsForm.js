@@ -71,6 +71,16 @@ export default function DetailsForm({ setStep }) {
     }
   };
 
+  const handlePdfDownload = async () => {
+    const serial = searchParams.get("serial");
+    try {
+      const res = await api.downloadPDF(serial);
+      window.open(res.data, "_blank");
+    } catch (error) {
+      toast.error("خطایی در دانلود فایل PDF رخ داد");
+    }
+  };
+
   useEffect(() => {
     fetchDetails();
   }, []);
@@ -80,15 +90,21 @@ export default function DetailsForm({ setStep }) {
       <Modal isOpen={modalIsOpen} style={customStyles}>
         <div className="modal-container">
           <p>اطلاعات با موفقیت ثبت شد و گارانتی شما شروع شد</p>
-          <button
-            className="main-button"
-            onClick={() => {
-              setModalIsOpen(false);
-              setStep(0);
-            }}
-          >
-            باشه
-          </button>
+
+          <div className="modal-buttons">
+            <button className="main-button" onClick={handlePdfDownload}>
+              دانلود PDF
+            </button>
+            <button
+              className="main-button"
+              onClick={() => {
+                setModalIsOpen(false);
+                setStep(0);
+              }}
+            >
+              باشه
+            </button>
+          </div>
         </div>
       </Modal>
       <form onSubmit={submitDetails} id="form" className="details-form">

@@ -21,15 +21,7 @@ export default function PhoneIdForm({ setStep }) {
       setSearchParams({ phoneNumber: phoneNumber, serial: serial });
       setStep(1);
     } catch (error) {
-      if (error.status === 404 || error.status === 400) {
-        setError("شماره همراه یا شناسه اشتباه است");
-        // toast.error("Invalid combination of phone number and ID");
-      } else if (error.status === 111 /* change this code */) {
-        setError("این کد قبلا استفاده شده است و تقلبی است");
-      } else {
-        setError("یک خطای غیر منتظره رخ داد! دوباره تلاش کنید");
-        // toast.error("An Unexpected error accured");
-      }
+      setError(error.response.data)
     }
   };
 

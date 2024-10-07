@@ -44,7 +44,7 @@ const api = {
   },
 
   downloadPDF: async (serial) => {
-    return await axiosInstance.get(`/api/Pdf/generate-pdf/${serial}`);
+    window.open(`${API_BASE_URL}/api/Pdf/generate-pdf/${serial}`);
   },
 };
 

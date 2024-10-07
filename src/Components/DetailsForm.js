@@ -75,7 +75,15 @@ export default function DetailsForm({ setStep }) {
     const serial = searchParams.get("serial");
     try {
       const res = await api.downloadPDF(serial);
-      window.open(res.data, "_blank");
+      const blob = new Blob([res.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${serial}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       toast.error("خطایی در دانلود فایل PDF رخ داد");
     }

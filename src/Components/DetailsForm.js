@@ -73,7 +73,7 @@ export default function DetailsForm({ setStep }) {
 
   const handlePdfDownload = async () => {
     const serial = searchParams.get("serial");
-    api.downloadPDF(serial)
+    api.downloadPDF(serial);
   };
 
   useEffect(() => {
@@ -102,7 +102,11 @@ export default function DetailsForm({ setStep }) {
           </div>
         </div>
       </Modal>
-      <form onSubmit={submitDetails} id="form" className="details-form">
+      <form
+        onSubmit={!details?.km && submitDetails}
+        id="form"
+        className="details-form"
+      >
         <h1>اطلاعات تکمیلی</h1>
         <div className="form-grid">
           <div>
@@ -111,6 +115,7 @@ export default function DetailsForm({ setStep }) {
               type="number"
               name="engineId"
               placeholder="شناسه موتور"
+              required
               defaultValue={details?.engineId}
             />
           </div>
@@ -132,6 +137,7 @@ export default function DetailsForm({ setStep }) {
               type="number"
               name="sellerNumber"
               placeholder="شماره فروشنده"
+              required
               defaultValue={details?.sellernum}
             />
           </div>
@@ -169,9 +175,11 @@ export default function DetailsForm({ setStep }) {
             />
           </div>
         </div>
-        <button type="submit" className="main-button">
-          ثبت
-        </button>
+        {!details?.km && (
+          <button type="submit" className="main-button">
+            ثبت
+          </button>
+        )}
         {message !== "" && error === "" && (
           <p className="submit-message">{message}</p>
         )}

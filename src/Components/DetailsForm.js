@@ -116,6 +116,7 @@ export default function DetailsForm({ setStep }) {
               name="engineId"
               placeholder="شناسه موتور"
               required
+              disabled={kilometerSubmitted || details?.engineId}
               defaultValue={details?.engineId}
             />
           </div>
@@ -138,6 +139,7 @@ export default function DetailsForm({ setStep }) {
               name="sellerNumber"
               placeholder="شماره فروشنده"
               required
+              disabled={kilometerSubmitted || details?.sellernum}
               defaultValue={details?.sellernum}
             />
           </div>

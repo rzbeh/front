@@ -146,6 +146,7 @@ export default function DetailsForm({ setStep }) {
               placeholder="کیلومتر"
               defaultValue={details?.km}
               disabled={kilometerSubmitted || details?.km}
+              required
             />
           </div>
 

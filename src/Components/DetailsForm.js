@@ -14,6 +14,7 @@ export default function DetailsForm({ setStep }) {
   const [expireError, setExpireError] = useState(false);
   const [kilometerSubmitted, setKilometerSubmitted] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [engineId, setEngineId] = useState();
 
   const customStyles = {
     content: {
@@ -25,6 +26,13 @@ export default function DetailsForm({ setStep }) {
       transform: "translate(-50%, -50%)",
       zIndex: 100,
     },
+  };
+
+  const isValidEngineId = (engineId) => {
+    if (engineId.toString().length < 11) {
+      return false;
+    }
+    return true;
   };
 
   const fetchDetails = async () => {
@@ -40,6 +48,9 @@ export default function DetailsForm({ setStep }) {
   const submitDetails = async (e) => {
     e.preventDefault();
     const engineId = e.target[0].value || null;
+    if (!isValidEngineId(engineId)) {
+      toast.error("شناسه موتور وارد شده معتبر نیست");
+    }
     const km = e.target[1].value || null;
     const sellerNumber = e.target[2].value || null;
     const serial = searchParams.get("serial");
@@ -115,6 +126,11 @@ export default function DetailsForm({ setStep }) {
               type="number"
               name="engineId"
               placeholder="شناسه موتور"
+              value={engineId}
+              onChange={(e) => setEngineId(e.target.value)}
+              className={
+                engineId && !isValidEngineId(engineId) && "invalid-input"
+              }
               required
               disabled={kilometerSubmitted || details?.engineId}
               defaultValue={details?.engineId}
@@ -138,7 +154,6 @@ export default function DetailsForm({ setStep }) {
               type="number"
               name="sellerNumber"
               placeholder="شماره فروشنده"
-              required
               disabled={kilometerSubmitted || details?.sellernum}
               defaultValue={details?.sellernum}
             />

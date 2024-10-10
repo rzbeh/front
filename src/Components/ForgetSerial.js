@@ -8,8 +8,15 @@ export default function ForgetSerial() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const navigate = useNavigate();
+
+  const isValidPhoneNumber = (phoneNumber) => {
+    const numberPattern =
+      /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
+    return numberPattern.test(phoneNumber);
+  };
 
   const sendSerial = async (e) => {
     e.preventDefault();
@@ -26,7 +33,7 @@ export default function ForgetSerial() {
       );
       navigate("/");
     } catch (error) {
-      setError(error.response.data);
+      setError(error?.response?.data);
     } finally {
       setLoading(false);
     }
@@ -36,7 +43,19 @@ export default function ForgetSerial() {
       <div className="form-container">
         <form onSubmit={sendSerial} className="forget-serial">
           <h1>بازیابی شناسه</h1>
-          <input type="text" name="phone" placeholder="شماره همراه" required />
+          <input
+            type="text"
+            name="phone"
+            placeholder="شماره همراه"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className={
+              !isValidPhoneNumber(phoneNumber) &&
+              phoneNumber !== "" &&
+              "invalid-input"
+            }
+            required
+          />
           {error !== "" && (
             <div className="error-box">
               <p className="error-message">{error}</p>

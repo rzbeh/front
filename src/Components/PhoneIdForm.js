@@ -6,12 +6,21 @@ import toast from "react-hot-toast";
 export default function PhoneIdForm({ setStep }) {
   const [error, setError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const isValidPhoneNumber = (phoneNumber) => {
+    const numberPattern =
+      /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
+    return numberPattern.test(phoneNumber);
+  };
 
   const navigate = useNavigate();
 
   const checkSerial = async (e) => {
     e.preventDefault();
-    const phoneNumber = e.target[0].value;
+    if (!isValidPhoneNumber(phoneNumber)) {
+      toast.error("شماره همراه وارد شده معتبر نیست");
+    }
     const serial = e.target[1].value;
     try {
       await api.checkSerial(serial, phoneNumber);
@@ -21,7 +30,7 @@ export default function PhoneIdForm({ setStep }) {
       setSearchParams({ phoneNumber: phoneNumber, serial: serial });
       setStep(1);
     } catch (error) {
-      setError(error.response.data)
+      setError(error.response.data);
     }
   };
 
@@ -33,6 +42,13 @@ export default function PhoneIdForm({ setStep }) {
         type="text"
         name="phone"
         placeholder="شماره همراه"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        className={
+          !isValidPhoneNumber(phoneNumber) &&
+          phoneNumber !== "" &&
+          "invalid-input"
+        }
         defaultValue={searchParams.get("phoneNumber")}
         required
       />

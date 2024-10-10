@@ -20,6 +20,7 @@ export default function PhoneIdForm({ setStep }) {
     e.preventDefault();
     if (!isValidPhoneNumber(phoneNumber)) {
       toast.error("شماره همراه وارد شده معتبر نیست");
+      return;
     }
     const serial = e.target[1].value;
     try {

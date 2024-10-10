@@ -50,6 +50,7 @@ export default function DetailsForm({ setStep }) {
     const engineId = e.target[0].value || null;
     if (!isValidEngineId(engineId)) {
       toast.error("شناسه موتور وارد شده معتبر نیست");
+      return;
     }
     const km = e.target[1].value || null;
     const sellerNumber = e.target[2].value || null;

@@ -422,6 +422,13 @@ body {
   margin-top: 10px;
 }
 
+.main-button {
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
 @media print {
   .print-button {
     display: none;

@@ -22,7 +22,6 @@ function App() {
         />
         <Route path="/qrcode" element={<QRCodePage />} />
         <Route path="/forget-serial" element={<ForgetSerial />} />
-        <Route path="/pdf" element={<PdfPage />} />
       </Routes>
     </div>
   );

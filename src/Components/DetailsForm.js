@@ -1,13 +1,15 @@
+import { usePDF } from "@react-pdf/renderer";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import api from "../API/api";
-import "./style.css";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
+import { useSearchParams } from "react-router-dom";
+import api from "../API/api";
+import PdfPage from "./pdfPage";
+import "./style.css";
 
 export default function DetailsForm({ setStep }) {
   const [details, setDetails] = useState();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [calculateResult, setCalculateResult] = useState();
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -15,8 +17,11 @@ export default function DetailsForm({ setStep }) {
   const [kilometerSubmitted, setKilometerSubmitted] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [engineId, setEngineId] = useState();
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  const [{ loading: pdfLoading, url, error: pdfError }] = usePDF({
+    document: details && !loading ? <PdfPage details={details} /> : null,
+  });
 
   const customStyles = {
     content: {
@@ -38,12 +43,15 @@ export default function DetailsForm({ setStep }) {
   };
 
   const fetchDetails = async () => {
+    setLoading(true);
     const serial = searchParams.get("serial");
     try {
       const res = await api.getDetails(serial);
       setDetails(res.data);
     } catch (error) {
       console.error("An Unexpected error accured");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,6 +70,7 @@ export default function DetailsForm({ setStep }) {
       setKilometerSubmitted(true);
       setError("");
       setMessage("اطلاعات شما با موفقیت ثبت شد");
+      fetchDetails();
       setModalIsOpen(true);
     } catch (error) {
       setMessage("");
@@ -85,11 +94,6 @@ export default function DetailsForm({ setStep }) {
     }
   };
 
-  const handlePdfDownload = async () => {
-    const serial = searchParams.get("serial");
-    api.downloadPDF(serial);
-  };
-
   useEffect(() => {
     fetchDetails();
   }, []);
@@ -101,14 +105,17 @@ export default function DetailsForm({ setStep }) {
           <p>اطلاعات با موفقیت ثبت شد و گارانتی شما شروع شد</p>
 
           <div className="modal-buttons">
-            <button
-              className="main-button"
-              onClick={() =>
-                navigate(`/pdf?serial=${searchParams.get("serial")}`)
-              }
-            >
-              دانلود PDF
-            </button>
+            {url ? (
+              <a
+                href={url}
+                className="main-button"
+                download="product-details.pdf"
+              >
+                دانلود
+              </a>
+            ) : (
+              <p className="main-button">PDF درحال ساخت</p>
+            )}
             <button
               className="main-button"
               onClick={() => {

@@ -1,113 +1,127 @@
 import React, { useEffect, useState } from "react";
-import "./style.css";
-import QRCode from "react-qr-code";
-import { useSearchParams } from "react-router-dom";
-import api from "../API/api";
+import {
+  Image,
+  Text,
+  View,
+  Page,
+  Document,
+  StyleSheet,
+  Font,
+} from "@react-pdf/renderer";
+import QRCode from "qrcode";
 
-export default function PdfPage() {
-  const [details, setDetails] = useState();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const [searchParams] = useSearchParams();
-
-  const serial = searchParams.get("serial");
-
-  const convertToPdf = () => {
-    if (window.print) {
-      window.print();
-    }
-  };
-
-  const fetchDetails = async () => {
-    const serial = searchParams.get("serial");
-    setLoading(true);
-    try {
-      const res = await api.getDetails(serial);
-      setDetails(res.data);
-    } catch (error) {
-      console.error("An Unexpected error accured");
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+export default function PdfPage({ details }) {
+  const [qrCodeUrl, setQrCodeUrl] = useState("");
 
   useEffect(() => {
-    fetchDetails();
-  }, []);
+    QRCode.toDataURL(
+      `${window.location.hostname}/qrcode?serial=${details.serial}`,
+      {
+        errorCorrectionLevel: "H",
+      }
+    )
+      .then((url) => setQrCodeUrl(url))
+      .catch((err) => console.error(err));
+  }, [details.serial]);
 
-  if (error) {
-    return (
-      <div className="pdf-page">
-        <h1 className="header">خطایی رخ داد</h1>
-      </div>
-    );
-  }
+  Font.register({ family: "YekanBakh", src: "/Fonts/YekanBakh-VF.ttf" });
+
+  const styles = StyleSheet.create({
+    page: {
+      fontSize: 11,
+      paddingTop: 20,
+      paddingLeft: 40,
+      paddingRight: 40,
+      lineHeight: 1.5,
+      fontFamily: "YekanBakh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    header: {
+      textAlign: "center",
+      marginBottom: 20,
+      fontSize: 16,
+      fontWeight: "extrabold",
+    },
+    section: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "8px",
+      marginBottom: 10,
+    },
+    label: {
+      fontWeight: "bold",
+    },
+    support: {
+      marginTop: 20,
+    },
+    qrCode: {
+      marginTop: 10,
+      alignSelf: "center",
+      height: "100px",
+      width: "100px",
+    },
+    footerLogos: {
+      flexDirection: "row",
+      justifyContent: "center",
+      marginTop: 20,
+    },
+    logo: {
+      marginHorizontal: 10,
+      width: 50,
+      height: 20,
+    },
+  });
 
   return (
-    <div className="pdf-page">
-      {loading ? (
-        <>
-          <p>لطفا چند لحظه منتظر بمانید...</p>
-        </>
-      ) : (
-        <>
-          <h1 className="header">از اینکه محصول خود را ثبت کردید متشکریم</h1>
+    <Document>
+      <Page size="A5" style={styles.page}>
+        <Text style={styles.header}>
+          از اینکه محصول خود را ثبت کردید متشکریم
+        </Text>
 
-          <div className="section">
-            <span className="label">شماره سریال:</span>
-            <span>{details?.serial}</span>
-          </div>
+        <View style={styles.section}>
+          <Text>{details.serial}</Text>
+          <Text style={styles.label}>:شماره سریال</Text>
+        </View>
 
-          <div className="section">
-            <span className="label">تاریخ ثبت نام:</span>
-            <span>{details?.time}</span>
-          </div>
+        <View style={styles.section}>
+          <Text>{details.time}</Text>
+          <Text style={styles.label}>:تاریخ ثبت نام</Text>
+        </View>
 
-          <div className="section">
-            <span className="label">نوع خودرو:</span>
-            <span>{details?.carType}</span>
-          </div>
+        <View style={styles.section}>
+          <Text>{details.carType}</Text>
+          <Text style={styles.label}>:نوع خودرو</Text>
+        </View>
 
-          <div className="section">
-            <span className="label">شماره موتور:</span>
-            <span>{details?.engineId}</span>
-          </div>
+        <View style={styles.section}>
+          <Text>{details.engineId}</Text>
+          <Text style={styles.label}>:شماره موتور</Text>
+        </View>
 
-          <div className="section">
-            <span className="label">کیلومتر اولیه:</span>
-            <span>{details?.km}</span>
-          </div>
+        <View style={styles.section}>
+          <Text>{details.km}</Text>
+          <Text style={styles.label}>:کیلومتر اولیه</Text>
+        </View>
 
-          <div className="section support">
-            <span className="label">پشتیبانی:</span>
-            <span>02144598476 - 09120708177</span>
-          </div>
+        <View style={styles.section}>
+          <Text>02144598476 - 09120708177</Text>
+          <Text style={styles.label}>:پشتیبانی</Text>
+        </View>
 
-          <QRCode
-            style={{
-              height: "auto",
-              maxWidth: "100px",
-              width: "100px",
-            }}
-            value={`${window.location.hostname}/qrcode?serial=${serial}`}
-            viewBox={`0 0 256 256`}
-          />
+        {qrCodeUrl && <Image style={styles.qrCode} src={qrCodeUrl} />}
 
-          <div
-            className="logo-container"
-            style={{ justifyContent: "space-evenly", width: "100%" }}
-          >
-            <img src="/logo3.jpg" alt="Tazaki Logo" className="logo" />
-            <img src="/logo2.PNG" alt="Gates Logo" className="logo" />
-            <img src="/logo1.jpg" alt="SENP Logo" className="logo" />
-          </div>
-          <button className="main-button print-button" onClick={convertToPdf}>
-            دانلود
-          </button>
-        </>
-      )}
-    </div>
+        <View style={styles.footerLogos}>
+          <Image style={styles.logo} src="/logo1.jpg" />
+          <Image style={styles.logo} src="/logo2.PNG" />
+          <Image style={styles.logo} src="/logo3.jpg" />
+        </View>
+      </Page>
+    </Document>
   );
 }

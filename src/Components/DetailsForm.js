@@ -19,9 +19,13 @@ export default function DetailsForm({ setStep }) {
   const [engineId, setEngineId] = useState();
   const [loading, setLoading] = useState(false);
 
-  const [{ loading: pdfLoading, url, error: pdfError }] = usePDF({
+  const [{ url }, update] = usePDF({
     document: details && !loading ? <PdfPage details={details} /> : null,
   });
+
+  useEffect(() => {
+    details && !loading && update(<PdfPage details={details} />);
+  }, [details]);
 
   const customStyles = {
     content: {

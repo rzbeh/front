@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../API/api";
 import "./style.css";
 import toast from "react-hot-toast";
@@ -15,6 +15,8 @@ export default function DetailsForm({ setStep }) {
   const [kilometerSubmitted, setKilometerSubmitted] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [engineId, setEngineId] = useState();
+
+  const navigate = useNavigate();
 
   const customStyles = {
     content: {
@@ -99,7 +101,12 @@ export default function DetailsForm({ setStep }) {
           <p>اطلاعات با موفقیت ثبت شد و گارانتی شما شروع شد</p>
 
           <div className="modal-buttons">
-            <button className="main-button" onClick={handlePdfDownload}>
+            <button
+              className="main-button"
+              onClick={() =>
+                navigate(`/pdf?serial=${searchParams.get("serial")}`)
+              }
+            >
               دانلود PDF
             </button>
             <button
@@ -194,7 +201,7 @@ export default function DetailsForm({ setStep }) {
             />
           </div>
         </div>
-        {!details?.km && (
+        {(!details?.km || details?.sellernum == null) && (
           <button type="submit" className="main-button">
             ثبت
           </button>

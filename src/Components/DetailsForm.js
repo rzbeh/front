@@ -53,7 +53,7 @@ export default function DetailsForm({ setStep }) {
     try {
       const res = await api.getDetails(serial);
       setDetails(res.data);
-      setSellerNum(res.data?.sellerNum);
+      setSellerNum(res.data?.sellernum);
     } catch (error) {
       console.error("An Unexpected error accured");
     } finally {

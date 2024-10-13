@@ -18,6 +18,7 @@ export default function DetailsForm({ setStep }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [engineId, setEngineId] = useState();
   const [loading, setLoading] = useState(false);
+  const [sellerNum, setSellerNum] = useState(details?.sellernum);
 
   const [{ url }, update] = usePDF({
     document: details && !loading ? <PdfPage details={details} /> : null,
@@ -67,10 +68,9 @@ export default function DetailsForm({ setStep }) {
       return;
     }
     const km = e.target[1].value || null;
-    const sellerNumber = e.target[2].value || null;
     const serial = searchParams.get("serial");
     try {
-      await api.submitDetails(serial, km, sellerNumber, engineId);
+      await api.submitDetails(serial, km, sellerNum, engineId);
       setKilometerSubmitted(true);
       setError("");
       setMessage("اطلاعات شما با موفقیت ثبت شد");
@@ -176,6 +176,8 @@ export default function DetailsForm({ setStep }) {
               placeholder="شماره فروشنده"
               disabled={kilometerSubmitted || details?.sellernum}
               defaultValue={details?.sellernum}
+              value={sellerNum}
+              onChange={(e) => setSellerNum(e.target.value)}
             />
           </div>
 

@@ -53,6 +53,7 @@ export default function DetailsForm({ setStep }) {
     try {
       const res = await api.getDetails(serial);
       setDetails(res.data);
+      setSellerNum(res.data?.sellerNum);
     } catch (error) {
       console.error("An Unexpected error accured");
     } finally {
@@ -175,7 +176,6 @@ export default function DetailsForm({ setStep }) {
               name="sellerNumber"
               placeholder="شماره فروشنده"
               disabled={kilometerSubmitted || details?.sellernum}
-              defaultValue={details?.sellernum}
               value={sellerNum}
               onChange={(e) => setSellerNum(e.target.value)}
             />

@@ -134,7 +134,7 @@ export default function DetailsForm({ setStep }) {
         </div>
       </Modal>
       <form
-        onSubmit={!details?.km && submitDetails}
+        onSubmit={(!details?.km || details?.sellernum == null) && submitDetails}
         id="form"
         className="details-form"
       >

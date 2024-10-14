@@ -24,16 +24,21 @@ export default function PdfPage({ details }) {
       .catch((err) => console.error(err));
   }, [details.serial]);
 
-  Font.register({ family: "YekanBakh", src: "/Fonts/YekanBakh-VF.ttf" });
+  Font.register({
+    family: "YekanBakhBold",
+    src: "/Fonts/BYekan+ Bold.ttf",
+    fontWeight: 600,
+  });
 
   const styles = StyleSheet.create({
     page: {
-      fontSize: 11,
       paddingTop: 20,
       paddingLeft: 40,
       paddingRight: 40,
       lineHeight: 1.5,
-      fontFamily: "YekanBakh",
+      fontFamily: "YekanBakhBold",
+      fontSize: 13,
+      fontWeight: 600,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",

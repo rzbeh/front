@@ -362,7 +362,7 @@ body {
 
 .modal-buttons {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 8px;
 }
 
@@ -429,6 +429,20 @@ body {
   }
 }
 
+.warning-text {
+  text-align: center;
+  font-size: 12px !important;
+  margin: 0 !important;
+  margin-bottom: 8px !important;
+}
+
+.details-button {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media print {
   .print-button {
     display: none;
@@ -485,6 +499,10 @@ body {
   .logo1 {
     margin-top: 180px;
     margin-bottom: 0;
+  }
+
+  .details-button {
+    padding-bottom: 8px;
   }
 }
 

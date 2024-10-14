@@ -121,15 +121,6 @@ export default function DetailsForm({ setStep }) {
             ) : (
               <p className="main-button">PDF درحال ساخت</p>
             )}
-            <button
-              className="main-button"
-              onClick={() => {
-                setModalIsOpen(false);
-                setStep(0);
-              }}
-            >
-              باشه
-            </button>
           </div>
         </div>
       </Modal>
@@ -215,9 +206,16 @@ export default function DetailsForm({ setStep }) {
           </div>
         </div>
         {(!details?.km || !details?.sellernum) && (
-          <button type="submit" className="main-button">
-            ثبت
-          </button>
+          <div className="details-button">
+            <p className="warning-text">
+              شناسه موتور را صحیح وارد کنید
+              <br />
+              در غیر اینصورت شامل گارانتی نمیگردد
+            </p>
+            <button type="submit" className="main-button">
+              ثبت
+            </button>
+          </div>
         )}
         {message !== "" && error === "" && (
           <p className="submit-message">{message}</p>
